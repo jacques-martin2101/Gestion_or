@@ -218,10 +218,13 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
     }
     echo $html;
     exit;
-} elseif (isset($_POST['action']) && $_POST['action'] === 'exporter_rapport') {
+} elseif (
+    (isset($_POST['action']) && $_POST['action'] === 'exporter_rapport') ||
+    (isset($_GET['action']) && $_GET['action'] === 'exporter_rapport')
+) {
+    $type = $_POST['type'] ?? $_GET['type'] ?? 'journalier';
     require_once 'vendor/autoload.php'; // Chemin correct vers l'autoloader Composer
 
-    $type = $_POST['type'];
     $phpWord = new PhpWord();
     $section = $phpWord->addSection();
 
@@ -329,8 +332,20 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
     header('Cache-Control: max-age=0');
 
     $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-    $objWriter->save('php://output');
-    exit;
+    $savePath = __DIR__ . '/Document/Rapport.docx';
+try {
+    $objWriter->save($savePath);
+    if (!file_exists($savePath)) {
+        error_log("Erreur : le fichier n'a pas pu être créé à $savePath");
+        echo "Erreur : le fichier n'a pas pu être créé à $savePath";
+    } else {
+        echo "Fichier Word créé avec succès à $savePath";
+    }
+} catch (Exception $e) {
+    error_log("Erreur PhpWord : " . $e->getMessage());
+    echo "Erreur PhpWord : " . $e->getMessage();
+}
+exit;
 } elseif (isset($_POST['action']) && $_POST['action'] === 'recherche') {
     $q = trim($_POST['q']);
     if ($q === '') exit; // Ne rien afficher si la recherche est vide
@@ -381,6 +396,7 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
     </table>";
     exit;
 }
+file_put_contents(__DIR__ . '/Document/test.txt', 'test');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -784,3 +800,23 @@ echo "<script>document.getElementById('btnImprimerFacture').disabled = false;</s
 <a href="index.php" style="float:right;color:#fff;margin-right:20px;">Déconnexion</a>
 </body>
 </html>
+<?php
+if (isset($_GET['test_word'])) {
+    $phpWord = new PhpWord();
+    $section = $phpWord->addSection();
+    $section->addText("Test création Word");
+
+    $savePath = __DIR__ . '/Document/TestWord.docx';
+    try {
+        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save($savePath);
+        if (!file_exists($savePath)) {
+            echo "Erreur : le fichier n'a pas pu être créé à $savePath";
+        } else {
+            echo "Fichier Word créé avec succès à $savePath";
+        }
+    } catch (Exception $e) {
+        echo "Erreur PhpWord : " . $e->getMessage();
+    }
+    exit;
+}
