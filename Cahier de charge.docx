@@ -1,0 +1,54 @@
+
+Résumé du système
+
+ce programme soit faire les tâches suiventes :
+- l'utilisateur va remplire les champs et valider... 
+s'il ne valide pas et qu'il veut reentrer les informations sur les champs,
+il va cliquer sur le bouton "Vider les cases" pour vider les champs.
+
+- La validation va envoyer un apperçu à côté qui sera la facture en affichant 
+tout et en faisant le calcul
+ça doit enregistrer le rapport dans "Rapport.txt" avec tout les détails possible 
+pour les utiliser plutard.
+
+- Dans le champs qui se trouvant dans le bouton "Ajouter", ça va service à ajouter
+ une ou plusieurs facture si il veut... et le champs va augmenter à chaque ajout 
+
+- un bouton "Doc Rapport" on retrouve quatre boutons : "Jour", 
+"Semaine", "Mois"
+qui va commencer à génerer un fichier word "Rapport.doc" pour 
+enregistrer les rapports d'une manière structurée et proffetionnelle
+
+- Dans le bouton "Envoyer Rapport" on retrouve deux bouton : "Rapport Journalier" 
+et "Rapport de semaine"
+*le bouton "Rapport Journalier" selectionne tout ce qu'on a fait dans la journée 
+pour l'envoyer dans l'adresse mail du chef comme un rapport de cloture da la journée
+*le bouton "Rapport de semaine" selectionne tout ce qu'on a fait dans toute la 
+semaine our l'envoyer dans l'adresse mail du chef comme un rapport de cloture de la semaine
+
+- Dans le bouton "Voir les Rapport" on retrouve quatre boutons : "Journalier", 
+"semaine", "Mensuel" et "Global"
+*le bouton "Journalier" va afficher les enregistrements de la journée se trouvant 
+dans la base de données et faire le Somme d'argent génerer dans cette journée
+*le bouton "semaine" va afficher les enregistrements de la semaine se trouvant dans
+ la base de données et faire le Somme d'argent génerer dans cette semaine
+*le bouton "Mensuel" va afficher les enregistrements du mois se trouvant dans la 
+base de données et faire le Somme d'argent génerer dans ce mois
+*le bouton "Global" va afficher tous les enregistrements se trouvant dans la base 
+de données sans faire le Somme d'argent génerer
+
+- Un bouton "Entrée" qui va affiche un tableau dans une fenetre flotante, la somme d'entrée du jour, la
+ somme d'entrée de la semaine et la somme d'entrée du mois
+
+- Le bouton "Recherche" va faire la recherche et l'afficher dans une petite 
+fenetre en tableau
+
+- Le bouton "Imprimer facture" va imprimer la facture ou les facture si 
+l'utilisateur a fait beaucoup de factures
+
+
+NB: le bouton "Doc", "Voir les Rapport", "Entrée" et "Recherche" doivent se trouver 
+dans la barre de navigation en haut de manière centrée pour le menu 
+
+
+

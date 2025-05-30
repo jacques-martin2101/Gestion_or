@@ -1,0 +1,154 @@
+--------------------------------------------
+Date : 23/05/2025 23:13:57
+Nom complet : Olga
+Adresse : Karavia
+N° Téléphone : 097647632
+Poids de l'or : 45 g
+Teneur de l'or : 64
+100 % : 50 %
+Prix de l'or : 2250 $
+--------------------------------------------
+Date : 2025-05-24 00:05:25
+Nom complet : Olga
+Adresse : Karavia
+N° Téléphone : 097647632
+Poids de l'or : 45 g
+Teneur de l'or : 64
+100 % : 50 %
+Prix de l'or : 2250 $
+--------------------------------------------
+Date : 2025-05-24 00:05:52
+Nom complet : Olga
+Adresse : Karavia
+N° Téléphone : 097647632
+Poids de l'or : 45 g
+Teneur de l'or : 64
+100 % : 50 %
+Prix de l'or : 2250 $
+--------------------------------------------
+Date : 2025-05-25 00:03:09
+Nom complet : fds
+Adresse : qsdf
+N° Téléphone : 234234
+Poids de l'or : 42 g
+Teneur de l'or : 24
+100 % : 15 %
+Prix de l'or : 630 $
+--------------------------------------------
+Date : 2025-05-25 00:49:15
+Nom complet : fds
+Adresse : qsdf
+N° Téléphone : 234234
+Poids de l'or : 42 g
+Teneur de l'or : 24
+100 % : 15 %
+Prix de l'or : 630 $
+--------------------------------------------
+Date : 2025-05-26 23:41:36
+Nom complet : Test
+Adresse : Tester
+N° Téléphone : 00000000
+Poids de l'or : 23 g
+Teneur de l'or : 42
+100 % : 53 %
+Prix de l'or : 1219 $
+--------------------------------------------
+Date : 2025-05-26 23:55:22
+Nom complet : jacque
+Adresse : lushi
+N° Téléphone : 024894792
+Poids de l'or : 43 g
+Teneur de l'or : 34
+100 % : 24 %
+Prix de l'or : 1032 $
+--------------------------------------------
+Date : 27/05/2025
+Nom complet : lelo
+Adresse : Mbandaka
+N° Téléphone : 098774848
+Poids de l'or : 8 g
+Teneur de l'or : 8
+100 % : 26 %
+Prix de l'or : 16.64 $
+--------------------------------------------
+Date : 27/05/2025
+Nom complet : FGGGFC
+Adresse : GDXG
+N° Téléphone : 4235465
+Poids de l'or : 5 g
+Teneur de l'or : 32
+100 % : 23 %
+Prix de l'or : 36.8 $
+--------------------------------------------
+Date : 28/05/2025
+Nom complet : MERC
+Adresse : Afri
+N° Téléphone : 0784972358
+Poids de l'or : 9 g
+Teneur de l'or : 8
+100 % : 50 %
+Prix de l'or : 36 $
+--------------------------------------------
+Date : 28/05/2025
+Nom complet : MERC
+Adresse : Afri
+N° Téléphone : 0784972358
+Poids de l'or : 9 g
+Teneur de l'or : 8
+100 % : 50 %
+Prix de l'or : 36 $
+--------------------------------------------
+Date : 29/05/2025
+Nom complet : Test
+Adresse : Kolwezi
+N° Téléphone : 093473478
+Poids de l'or : 100 g
+Teneur de l'or : 90
+100 % : 55 %
+Prix de l'or : 4950 $
+--------------------------------------------
+Date : 29/05/2025
+Nom complet : Test
+Adresse : Kolwezi
+N° Téléphone : 093473478
+Poids de l'or : 100 g
+Teneur de l'or : 90
+100 % : 55 %
+Prix de l'or : 4950 $
+--------------------------------------------
+Date : 29/05/2025
+Nom complet : Aujourd'hui
+Adresse : Karavia
+N° Téléphone : 049385323
+Poids de l'or : 59 g
+Teneur de l'or : 57
+100 % : 50 %
+Prix de l'or : 1681.5 $
+--------------------------------------------
+Date : 29/05/2025
+Nom complet : Aujourd'hui
+Adresse : Karavia
+N° Téléphone : 049385323
+Poids de l'or : 59 g
+Teneur de l'or : 57
+100 % : 50 %
+Prix de l'or : 1681.5 $
+--------------------------------------------
+Date : 29/05/2025
+Nom complet : Test
+Adresse : lushi
+N° Téléphone : 09748577
+Poids de l'or : 50 g
+Teneur de l'or : 55
+100 % : 50 %
+Prix de l'or : 1375 $
+--------------------------------------------
+Date : 30/05/2025
+Nom complet : Loick
+Adresse : Kasapa
+N° Téléphone : 09876789
+Poids de l'or : 12 g
+Teneur de l'or : 14
+100 % : 100 %
+Prix de l'or : 168 $
+--------------------------------------------
