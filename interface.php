@@ -781,6 +781,6 @@ function nouvelleFacture() {
 echo "<script>document.getElementById('btnNouvelleFacture').style.display='inline-block';</script>";
 echo "<script>document.getElementById('btnImprimerFacture').disabled = false;</script>";
 ?>
-<a href="logout.php" style="float:right;color:#fff;margin-right:20px;">Déconnexion</a>
+<a href="index.php" style="float:right;color:#fff;margin-right:20px;">Déconnexion</a>
 </body>
 </html>
