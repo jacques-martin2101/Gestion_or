@@ -218,13 +218,10 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
     }
     echo $html;
     exit;
-} elseif (
-    (isset($_POST['action']) && $_POST['action'] === 'exporter_rapport') ||
-    (isset($_GET['action']) && $_GET['action'] === 'exporter_rapport')
-) {
-    $type = $_POST['type'] ?? $_GET['type'] ?? 'journalier';
+} elseif (isset($_POST['action']) && $_POST['action'] === 'exporter_rapport') {
     require_once 'vendor/autoload.php'; // Chemin correct vers l'autoloader Composer
 
+    $type = $_POST['type'];
     $phpWord = new PhpWord();
     $section = $phpWord->addSection();
 
@@ -332,20 +329,8 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
     header('Cache-Control: max-age=0');
 
     $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-    $savePath = __DIR__ . '/Document/Rapport.docx';
-try {
-    $objWriter->save($savePath);
-    if (!file_exists($savePath)) {
-        error_log("Erreur : le fichier n'a pas pu être créé à $savePath");
-        echo "Erreur : le fichier n'a pas pu être créé à $savePath";
-    } else {
-        echo "Fichier Word créé avec succès à $savePath";
-    }
-} catch (Exception $e) {
-    error_log("Erreur PhpWord : " . $e->getMessage());
-    echo "Erreur PhpWord : " . $e->getMessage();
-}
-exit;
+    $objWriter->save('php://output');
+    exit;
 } elseif (isset($_POST['action']) && $_POST['action'] === 'recherche') {
     $q = trim($_POST['q']);
     if ($q === '') exit; // Ne rien afficher si la recherche est vide
@@ -396,7 +381,6 @@ exit;
     </table>";
     exit;
 }
-file_put_contents(__DIR__ . '/Document/test.txt', 'test');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -514,9 +498,57 @@ file_put_contents(__DIR__ . '/Document/test.txt', 'test');
             #facture, #facture * { visibility: visible; }
             #facture { position: absolute; left: 0; top: 0; width: 100%; }
         }
+        /* Styles pour le header et le menu déroulant */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px 18px 30px;
+            background: rgba(230, 222, 65, 0.95);
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 2px 8px #bbb;
+        }
+        #menuBtn {
+            padding: 8px 30px;
+            font-size: 1rem;
+        }
+        #menuDropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 110%;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #bbb;
+            min-width: 200px;
+            z-index: 1000;
+        }
+        #menuDropdown .btn {
+            width: 100%;
+            margin: 8px 0;
+        }
     </style>
 </head>
 <body>
+    <!-- Header avec menu déroulant -->
+<header style="display:flex;justify-content:space-between;align-items:center;padding:18px 40px 18px 30px;background:rgba(230,222,65,0.95);border-radius:0 0 18px 18px;box-shadow:0 2px 8px #bbb;">
+    <div style="font-size:2rem;font-weight:bold;letter-spacing:2px;color:#222;">
+        LWAMBA GOLD
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;">
+        <div style="position:relative;">
+            <button id="menuBtn" class="btn" style="padding:8px 30px;font-size:1rem;">Menu &#x25BC;</button>
+            <div id="menuDropdown" style="display:none;position:absolute;right:0;top:110%;background:#fff;border-radius:10px;box-shadow:0 2px 8px #bbb;min-width:200px;z-index:1000;">
+                <button class="btn" style="width:100%;margin:8px 0;" onclick="ouvrirModal();closeMenu()">Envoyer Rapport</button>
+                <button class="btn" style="width:100%;margin:8px 0;" onclick="ouvrirRapportModal();closeMenu()">Voir les Rapports</button>
+                <button class="btn" style="width:100%;margin:8px 0;" onclick="ouvrirEntreeModal();closeMenu()">Entrée</button>
+            </div>
+        </div>
+        <input type="text" id="recherche" placeholder="Recherche..." style="height:32px;border-radius:8px;border:1px solid #ccc;padding:0 12px;">
+        <button class="btn" onclick="rechercherOperation()" style="padding:6px 20px;">Rechercher</button>
+        <a href="logout.php" class="btn" style="background:#f44336;color:#fff;padding:6px 20px;text-decoration:none;">Déconnexion</a>
+    </div>
+</header>
     <div class="container">
         <form method="post" autocomplete="off">
             <div class="left">
@@ -546,9 +578,7 @@ file_put_contents(__DIR__ . '/Document/test.txt', 'test');
                 </div>
                 <div class="actions">
                     <button type="submit" class="btn">Valider</button>
-                    <button type="button" class="btn" onclick="ouvrirModal()">Envoyer Rapport</button>
-                    <button type="button" class="btn" onclick="ouvrirRapportModal()">Voir les Rapports</button>
-                    <button type="button" class="btn" onclick="ouvrirEntreeModal()">Entrée</button>
+                    <button type="reset" class="btn" style="background:#f44336;color:#fff;">Réinitialiser</button>
                      
                 </div>
             </div>
@@ -635,9 +665,7 @@ file_put_contents(__DIR__ . '/Document/test.txt', 'test');
                 
             </div>
         </form>
-        <input type="text" id="recherche">
-        <button onclick="rechercherOperation()">Rechercher</button>
-        <div id="resultatsRecherche"></div>
+       
     </div>
     <!-- Fenêtre modale pour envoyer rapport -->
     <div id="rapportModal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.3);z-index:1100;align-items:center;justify-content:center;">
@@ -791,32 +819,38 @@ function nouvelleFacture() {
     document.getElementById('btnImprimerFacture').disabled = true;
     window.scrollTo(0,0);
 }
+function closeMenu() {
+    document.getElementById('menuDropdown').style.display = 'none';
+}
+document.getElementById('menuBtn').addEventListener('click', function() {
+    var dropdown = document.getElementById('menuDropdown');
+    dropdown.style.display = (dropdown.style.display === 'flex' ? 'none' : 'flex');
+});
+window.addEventListener('click', function(e) {
+    if (!document.getElementById('menuBtn').contains(e.target) && !document.getElementById('menuDropdown').contains(e.target)) {
+        document.getElementById('menuDropdown').style.display = 'none';
+    }
+});
+// Menu déroulant dynamique
+document.addEventListener('DOMContentLoaded', function() {
+    var menuBtn = document.getElementById('menuBtn');
+    var menuDropdown = document.getElementById('menuDropdown');
+    menuBtn.onclick = function(e) {
+        e.stopPropagation();
+        menuDropdown.style.display = menuDropdown.style.display === 'block' ? 'none' : 'block';
+    };
+    window.closeMenu = function() {
+        menuDropdown.style.display = 'none';
+    };
+    document.body.addEventListener('click', function() {
+        menuDropdown.style.display = 'none';
+    });
+});
 </script>
 <?php
 // ... après echo '</div>'; (fin de la facture)
 echo "<script>document.getElementById('btnNouvelleFacture').style.display='inline-block';</script>";
 echo "<script>document.getElementById('btnImprimerFacture').disabled = false;</script>";
 ?>
-<a href="index.php" style="float:right;color:#fff;margin-right:20px;">Déconnexion</a>
 </body>
 </html>
-<?php
-if (isset($_GET['test_word'])) {
-    $phpWord = new PhpWord();
-    $section = $phpWord->addSection();
-    $section->addText("Test création Word");
-
-    $savePath = __DIR__ . '/Document/TestWord.docx';
-    try {
-        $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save($savePath);
-        if (!file_exists($savePath)) {
-            echo "Erreur : le fichier n'a pas pu être créé à $savePath";
-        } else {
-            echo "Fichier Word créé avec succès à $savePath";
-        }
-    } catch (Exception $e) {
-        echo "Erreur PhpWord : " . $e->getMessage();
-    }
-    exit;
-}

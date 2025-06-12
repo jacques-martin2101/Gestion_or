@@ -269,3 +269,39 @@ Teneur de l'or : 82
 100 % : 37 %
 Prix de l'or : 1152.92 $
 --------------------------------------------
+Date : 31/05/2025
+Nom complet : TOUS
+Adresse : BLR
+N° Téléphone : 088947332
+Poids de l'or : 9 g
+Teneur de l'or : 88
+100 % : 50 %
+Prix de l'or : 396 $
+--------------------------------------------
+Date : 31/05/2025
+Nom complet : TOUS
+Adresse : BLR
+N° Téléphone : 088947332
+Poids de l'or : 9 g
+Teneur de l'or : 88
+100 % : 50 %
+Prix de l'or : 396 $
+--------------------------------------------
+Date : 31/05/2025
+Nom complet : TOUS
+Adresse : BLR
+N° Téléphone : 088947332
+Poids de l'or : 9 g
+Teneur de l'or : 88
+100 % : 50 %
+Prix de l'or : 396 $
+--------------------------------------------
+Date : 31/05/2025
+Nom complet : TOUS
+Adresse : BLR
+N° Téléphone : 088947332
+Poids de l'or : 9 g
+Teneur de l'or : 88
+100 % : 50 %
+Prix de l'or : 396 $
+--------------------------------------------
