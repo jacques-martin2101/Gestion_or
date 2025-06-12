@@ -380,6 +380,22 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
         <tr><td>Ce mois</td><td style='color:#007b00;font-weight:bold;'>$mois</td></tr>
     </table>";
     exit;
+} elseif (isset($_POST['action']) && $_POST['action'] === 'ajouter_cota') {
+    $montant = floatval($_POST['montant']);
+    $data = [
+        'date' => date('Y-m-d'),
+        'cota' => $montant
+    ];
+    file_put_contents('cota_journalier.json', json_encode($data));
+    exit;
+} elseif (isset($_POST['action']) && $_POST['action'] === 'afficher_cota') {
+    $data = @json_decode(@file_get_contents('cota_journalier.json'), true);
+    if ($data && $data['date'] === date('Y-m-d')) {
+        echo "Cota restant aujourd'hui : <span style='color:#007b00'>" . $data['cota'] . " $</span>";
+    } else {
+        echo "Aucun cota défini pour aujourd'hui.";
+    }
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -578,15 +594,17 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
                 </div>
                 <div class="actions">
                     <button type="submit" class="btn">Valider</button>
-                    <button type="reset" class="btn" style="background:#f44336;color:#fff;">Réinitialiser</button>
+                    <button type="reset" class="btn" style="background:#f44336;color:#fff;"><a href="interface.php">Réinitialiser</a> </button>
                      
                 </div>
             </div>
             <div class="right">
+                
                 <div class="add-group">
-                    <input type="text" placeholder="">
-                    <button type="button" class="btn">Ajouter</button>
+                    <input type="number" id="cotaJour" placeholder="Cota du jour en $" min="0">
+                    <button type="button" class="btn" onclick="ajouterCota()">Ajouter</button>
                 </div>
+                <div id="affichageCota" style="margin-bottom:10px;color:#007b00;font-weight:bold;"></div>
                 <div id="facture" style="width:100%;margin-bottom:30px;">
                 <?php
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['nom'])) {
@@ -656,6 +674,19 @@ if(isset($_POST['action']) && $_POST['action'] === 'send_rapport') {
                     echo '</div>';
                     echo '</div>';
                     $_POST = [];
+
+                    // Mise à jour du cota journalier
+                    $cotaFile = 'cota_journalier.json';
+                    $data = @json_decode(@file_get_contents($cotaFile), true);
+                    if ($data && $data['date'] === date('Y-m-d')) {
+                        $data['cota'] -= $prix_total;
+                        if ($data['cota'] < 0) $data['cota'] = 0;
+                        file_put_contents($cotaFile, json_encode($data));
+                        // Notification si cota épuisé
+                        if ($data['cota'] <= 0) {
+                            echo "<script>showNotif('Attention : le cota du jour est épuisé, veuillez en saisir un nouveau.', '#f44336');</script>";
+                        }
+                    }
                 }
                 ?>
                 <button type="button" class="btn" id="btnImprimerFacture" style="margin-top:auto;" onclick="imprimerFacture()" disabled>Imprimer facture</button>
@@ -819,6 +850,7 @@ function nouvelleFacture() {
     document.getElementById('btnImprimerFacture').disabled = true;
     window.scrollTo(0,0);
 }
+
 function closeMenu() {
     document.getElementById('menuDropdown').style.display = 'none';
 }
@@ -846,6 +878,36 @@ document.addEventListener('DOMContentLoaded', function() {
         menuDropdown.style.display = 'none';
     });
 });
+function ajouterCota() {
+    var montant = parseFloat(document.getElementById('cotaJour').value);
+    if (isNaN(montant) || montant <= 0) {
+        showNotif("Veuillez entrer un montant valide pour le cota.", "#f44336");
+        return;
+    }
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'interface.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4) {
+            showNotif('Cota du jour enregistré !', '#4caf50');
+            afficherCota();
+        }
+    };
+    xhr.send('action=ajouter_cota&montant=' + encodeURIComponent(montant));
+}
+
+function afficherCota() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'interface.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState === 4) {
+            document.getElementById('affichageCota').innerHTML = xhr.responseText;
+        }
+    };
+    xhr.send('action=afficher_cota');
+}
+afficherCota();
 </script>
 <?php
 // ... après echo '</div>'; (fin de la facture)
